@@ -54,14 +54,31 @@ test('rejection needs a comment; all items must be decided', async () => {
   assert.equal(ok.body.outcome, 'changes_requested');
 });
 
-test('waitlist is rate limited per IP', async () => {
-  delete process.env.BLOB_READ_WRITE_TOKEN;
-  const waitlist = require('../api/waitlist');
-  const send = (i) => new Promise((resolve) => {
-    const res = { setHeader() {}, status(s) { this.s = s; return this; }, json() { resolve(this.s); } };
-    waitlist({ method: 'POST', body: { email: i < 2 ? 'bad' : 'a@b.co' }, headers: { 'x-real-ip': '203.0.113.9' } }, res);
-  });
+test('waitlist rate limit holds across instances (Blob-backed)', async () => {
+  process.env.BLOB_READ_WRITE_TOKEN = 'test';
+  const store = new Map();
+  const fake = {
+    list: async ({ prefix, limit }) => ({ blobs: [...store.keys()].filter((k) => k.startsWith(prefix)).slice(0, limit).map((pathname) => ({ pathname, url: pathname })) }),
+    put: async (key, data) => { store.set(key, data); return {}; },
+    del: async (urls) => { [].concat(urls).forEach((u) => store.delete(u)); },
+  };
+  require.cache[require.resolve('@vercel/blob')] = { exports: fake, loaded: true, id: 'blob' };
+  const send = (i) => {
+    // Fresh module per request simulates a new serverless instance (empty memory).
+    delete require.cache[require.resolve('../api/waitlist')];
+    const waitlist = require('../api/waitlist');
+    return new Promise((resolve) => {
+      const res = { setHeader() {}, status(s) { this.s = s; return this; }, json() { resolve(this.s); } };
+      waitlist({ method: 'POST', body: { email: i === 0 ? 'bad' : `u${i}@b.co` }, headers: { 'x-real-ip': '203.0.113.9' } }, res);
+    });
+  };
   const codes = [];
-  for (let i = 0; i < 6; i++) codes.push(await send(i));
-  assert.deepEqual(codes, [400, 400, 503, 503, 503, 429]);
+  for (let i = 0; i < 7; i++) codes.push(await send(i));
+  assert.deepEqual(codes, [400, 200, 200, 200, 200, 429, 429]);
+  const otherIp = await new Promise((resolve) => {
+    const res = { setHeader() {}, status(s) { this.s = s; return this; }, json() { resolve(this.s); } };
+    require('../api/waitlist')({ method: 'POST', body: { email: 'x@b.co' }, headers: { 'x-real-ip': '198.51.100.1' } }, res);
+  });
+  assert.equal(otherIp, 200);
+  assert.ok(![...store.keys()].some((k) => k.includes('203.0.113.9')), 'raw IP must not be stored');
 });

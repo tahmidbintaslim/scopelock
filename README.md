@@ -43,7 +43,7 @@ Most agency disputes come down to one sentence: *"I thought that was included."*
 * Integrity comes from HMAC-SHA256 with a server secret, compared in constant time. Tokens can't be forged or edited without `SIGNING_SECRET`.
 * Signer identity is **self-declared**: the receipt shows what the person who opened the link claimed. It is a sign-off record, not an eIDAS or ESIGN qualified signature.
 * If you rotate the secret, every existing link stops verifying. To rotate safely, add key IDs (`v2.<kid>.…`), which is on the roadmap.
-* Inputs are size-limited (64 KB body, 100 items, 600 chars per item). The UI renders everything with `textContent`, under a strict CSP.
+* Inputs are size-limited (64 KB body, 100 items, 600 chars per item). Waitlist sign-ups are rate-limited per IP (5 per 10 min), with counters in Blob under a keyed hash, so raw IPs are never stored. The UI renders everything with `textContent`, under a strict CSP.
 
 ## Self-host
 
