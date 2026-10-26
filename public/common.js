@@ -18,7 +18,6 @@ async function api(path, body) {
   if (!r.ok) throw new Error(j.error || 'Request failed');
   return j;
 }
-function track(name, props) { try { window.va && window.va('event', { name, data: props }); } catch {} }
 const KIND = { scope: 'In scope', uat: 'UAT check', out: 'Out of scope' };
 const tokenFromHash = () => decodeURIComponent(location.hash.slice(1));
 function copyBtn(input) {
@@ -27,5 +26,3 @@ function copyBtn(input) {
   }, text: 'Copy' });
 }
 function fmt(iso) { try { return new Date(iso).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' }); } catch { return iso; } }
-// Vercel Web Analytics queue (script loaded from /_vercel/insights/script.js)
-window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };

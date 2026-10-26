@@ -41,7 +41,6 @@ async function init() {
     }
   }
   $('#doc').classList.remove('hidden');
-  track('doc_viewed');
 }
 init();
 $('#f').addEventListener('submit', async (e) => {
@@ -62,6 +61,5 @@ $('#f').addEventListener('submit', async (e) => {
     $('#ropen').href = url;
     $('#done-h').textContent = outcome === 'approved' ? 'Signed: everything approved' : 'Signed with requested changes';
     $('#doc').classList.add('hidden'); $('#done').classList.remove('hidden');
-    track('doc_signed', { outcome });
   } catch (err) { $('#ferr').textContent = err.message; btn.disabled = false; }
 });

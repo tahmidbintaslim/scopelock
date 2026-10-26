@@ -21,7 +21,7 @@ Why ScopeLock goes first even though checkout-sentinel has more revenue: it is d
 - **Pricing:** Free (unlimited links, receipts, change requests, ScopeLock footer). **Pro $19/mo**: workspace, email notifications, branding, PDF, CR log. **Agency $49/mo**: 10 seats, white-label domain, API/webhooks. Early-access price locked for life.
 - **MVP scope (shipped):** create a sign-off (scope, UAT and out-of-scope items, paste-to-split), client sign page (accept/reject with comment, acknowledge exclusions, declaration), HMAC-signed receipt with evidence, public verify page, change requests with an added/changed/removed diff against the signed baseline, waitlist (Vercel Blob, private), Stripe Payment Links (test), privacy page.
 - **Next for Pro (build only after 10 paid or 50 waitlist sign-ups):** auth plus Postgres workspace; Resend email on sign/reject; logo; PDF via @react-pdf or Playwright; signer email OTP.
-- **Stack:** static HTML/CSS/vanilla JS plus four Node serverless functions; `crypto` HMAC; `@vercel/blob`; Stripe Payment Links; Vercel Web Analytics with custom events (`doc_created`, `doc_signed`, `cr_created`, `waitlist_join`, `buy_pro`, `checkout_complete`).
+- **Stack:** static HTML/CSS/vanilla JS plus four Node serverless functions; `crypto` HMAC; `@vercel/blob`; Stripe Payment Links. No analytics: success is measured by waitlist sign-ups (Blob) and Stripe checkouts.
 - **Hosting:** Vercel project `scopelock` (team "My Projects"), production alias `scopelock-sable.vercel.app`. Env: `SIGNING_SECRET` (sensitive), `BLOB_READ_WRITE_TOKEN` (linked store `scopelock-waitlist`), `STRIPE_LINK_PRO` and `STRIPE_LINK_AGENCY` (test links). Cost: $0 on Hobby until traffic grows (switch to Pro if it is used commercially, per Vercel ToS).
 
 ### checkout-sentinel
@@ -60,7 +60,7 @@ Why ScopeLock goes first even though checkout-sentinel has more revenue: it is d
 
 ## 4. Launch kit for ScopeLock (drafts; the owner posts)
 
-> Before posting: (1) the owner approves Stripe live mode, then the live links replace the `STRIPE_LINK_*` env values; (2) enable Web Analytics; (3) the GitHub repo is public; (4) optionally a custom domain (for example `scopelock.app`, check price first).
+> Before posting: (1) the owner approves Stripe live mode, then the live links replace the `STRIPE_LINK_*` env values; (2) the GitHub repo is public; (3) optionally a custom domain (for example `scopelock.app`, check price first).
 
 ### Product Hunt
 - **Name:** ScopeLock
@@ -123,7 +123,6 @@ ScopeLock is **not an MCP server** today, so don't list it. A good follow-up (ab
 ### Launch-day checklist (ScopeLock)
 **T-7 to T-2 days**
 - [ ] Owner approves Stripe live mode → create live Payment Links → update `STRIPE_LINK_PRO` and `STRIPE_LINK_AGENCY` → redeploy → do one real $19 purchase and refund it
-- [ ] Vercel → scopelock → Analytics → **Enable Web Analytics** (and redeploy)
 - [ ] Create a public `tahmidbintaslim/scopelock` repo, push, set topics, social preview, About link
 - [ ] Record the 20 s GIF (the flow from the screenshots); make a 1270×760 PH thumbnail
 - [ ] Optional: buy a domain and add it to the project; update the Stripe redirect URLs
@@ -133,7 +132,7 @@ ScopeLock is **not an MCP server** today, so don't list it. A good follow-up (ab
 - [ ] 14:01: PH goes live → post the maker comment
 - [ ] 14:15: X thread, LinkedIn post (link in the first comment if reach drops)
 - [ ] 20:00–21:00 (US morning): Show HN. Stay to answer every comment for 3 hours, with technical answers and no marketing tone
-- [ ] Every 2 h: check Vercel runtime errors and logs, the waitlist count (Blob `waitlist/`), Analytics events
+- [ ] Every 2 h: check Vercel runtime errors and logs, the waitlist count (Blob `waitlist/`), Stripe test or live checkouts
 - [ ] Reply to every PH and HN comment within 30 min
 
 **T+1 to T+7**

@@ -27,7 +27,6 @@ async function init() {
   $('#ev').textContent = `Country: ${r.evidence.country || 'n/a'} · UA fingerprint: ${r.evidence.uaHash}` + (d.parent ? ` · Supersedes baseline receipt ${d.parent.receiptHash.slice(0, 16)}…` : '');
   $('#cr').href = '/new#cr=' + encodeURIComponent(token);
   $('#r').classList.remove('hidden');
-  track('receipt_viewed');
 }
 init();
 $('#print').addEventListener('click', () => window.print());

@@ -54,6 +54,5 @@ $('#f').addEventListener('submit', async (e) => {
     $('#preview').href = url;
     $('#f').classList.add('hidden');
     $('#done').classList.remove('hidden');
-    track(parentToken ? 'cr_created' : 'doc_created', { items: items.length });
   } catch (err) { $('#err').textContent = err.message; btn.disabled = false; }
 });
