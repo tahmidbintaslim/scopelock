@@ -57,11 +57,11 @@ test('rejection needs a comment; all items must be decided', async () => {
 test('waitlist is rate limited per IP', async () => {
   delete process.env.BLOB_READ_WRITE_TOKEN;
   const waitlist = require('../api/waitlist');
-  const send = () => new Promise((resolve) => {
+  const send = (i) => new Promise((resolve) => {
     const res = { setHeader() {}, status(s) { this.s = s; return this; }, json() { resolve(this.s); } };
-    waitlist({ method: 'POST', body: { email: 'a@b.co' }, headers: { 'x-real-ip': '203.0.113.9' } }, res);
+    waitlist({ method: 'POST', body: { email: i < 2 ? 'bad' : 'a@b.co' }, headers: { 'x-real-ip': '203.0.113.9' } }, res);
   });
   const codes = [];
-  for (let i = 0; i < 6; i++) codes.push(await send());
-  assert.deepEqual(codes, [503, 503, 503, 503, 503, 429]);
+  for (let i = 0; i < 6; i++) codes.push(await send(i));
+  assert.deepEqual(codes, [400, 400, 503, 503, 503, 429]);
 });
