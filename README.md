@@ -5,11 +5,25 @@ The client ticks each item and signs, and you both get an HMAC-signed receipt. E
 No database. No client login.</p>
 <p align="center"><a href="https://scopelock-sable.vercel.app">Live app</a> · <a href="#how-it-works">How it works</a> · <a href="#self-host">Self-host</a></p>
 
-![Client signing a change request: added and changed items are highlighted](docs/change-request.png)
+<p align="center"><a href="https://scopelock-sable.vercel.app"><b>▶ Try the live demo</b></a> &nbsp;·&nbsp; free, no signup</p>
+
+<p align="center"><img src="docs/img/demo.gif" width="760" alt="Demo: an agency creates a sign-off, the client accepts and rejects items and signs, then a change request shows the diff"></p>
 
 ## Why
 
 Most agency disputes come down to one sentence: *"I thought that was included."* A PDF SOW and an email that says "looks good" don't settle it. ScopeLock records **what was shown, what was approved or rejected, by whom and when**, in a form neither side can quietly edit later.
+
+## Screenshots
+
+| 1. Agency creates a sign-off | 2. Client reviews and signs |
+|---|---|
+| <img src="docs/img/02-create.png" alt="Create form with in-scope, UAT and out-of-scope items"> | <img src="docs/img/04-client-review.png" alt="Client page with accept or reject per item and a comment on the rejected one"> |
+| **3. Signed receipt with evidence** | **4. Change request shown as a diff** |
+| <img src="docs/img/05-receipt.png" alt="Receipt showing approved and rejected items, signer, time and hashes"> | <img src="docs/img/07-client-diff.png" alt="Change request with a changed item (was / now) and an added item"> |
+| **5. Anyone can verify a link** | **6. An edited link fails verification** |
+| <img src="docs/img/08-verify.png" alt="Verify page confirming a valid receipt"> | <img src="docs/img/09-tampered.png" alt="Verify page rejecting a receipt whose signer name was edited"> |
+
+<p align="center"><img src="docs/img/10-mobile.png" width="280" alt="Client sign page on a phone"><br><sub>Works on a phone, which is where most clients open the link.</sub></p>
 
 ## How it works
 
@@ -42,6 +56,16 @@ npx vercel deploy
 ```
 
 No framework and no build step: static files in `public/` plus four Node functions in `api/`.
+
+### Run it locally
+
+```bash
+SIGNING_SECRET=$(openssl rand -base64 32) npm run dev   # http://localhost:3000, no Vercel CLI needed
+```
+
+`scripts/capture-screenshots.js` regenerates everything in `docs/img/` from a real run against the dev server.
+
+**Payments:** checkout uses Stripe Payment Links in **test mode** for now. Pro and Agency are early access.
 
 ## Roadmap
 

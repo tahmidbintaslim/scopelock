@@ -43,3 +43,4 @@ footer{border-top:1px solid var(--line);margin-top:72px;padding:24px 0;color:var
 .hidden{display:none!important}
 .banner{background:var(--soft);border-radius:10px;padding:12px 16px;margin:16px 0}
 @media print{header.top,footer,.noprint{display:none!important}body{background:#fff;color:#000}}
+.shot{margin:0;padding:10px}.shot img{width:100%;height:auto;border-radius:8px;border:1px solid var(--line);display:block}.shot figcaption{margin-top:10px;font-size:14px}
