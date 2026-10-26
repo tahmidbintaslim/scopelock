@@ -28,6 +28,8 @@ test('seal, sign, verify, change request', async () => {
   const cv = await call(verify, { token: cr.body.token });
   assert.equal(cv.body.data.revision, 2);
   assert.equal(cv.body.data.parent.items.length, 3);
+  // Unchanged items keep their ids so the client sees an accurate diff.
+  assert.deepEqual(cv.body.data.items.slice(0, 3).map((i) => i.id), items.map((i) => i.id));
 });
 
 test('tampering is detected', async () => {
