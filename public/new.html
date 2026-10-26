@@ -1,0 +1,24 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/style.css"><link rel="icon" href="/favicon.svg"><script defer src="/_vercel/insights/script.js"></script><script src="/common.js"></script><title>New sign-off · ScopeLock</title></head><body>
+<header class="top wrap"><a class="logo" href="/">Scope<span>Lock</span></a><nav><a href="/#how">How it works</a><a href="/#pricing">Pricing</a><a href="/new">New sign-off</a></nav></header>
+<main class="wrap" style="max-width:760px">
+<h1 style="font-size:36px" id="h">New sign-off</h1>
+<div id="cr-banner" class="banner hidden"></div>
+<form id="f">
+<div class="grid"><div><label for="title">Project / milestone</label><input id="title" required maxlength="160" placeholder="Acme storefront: Phase 1"></div>
+<div><label for="client">Client name</label><input id="client" required maxlength="120" placeholder="Acme Co."></div></div>
+<div class="grid"><div><label for="agency">Your agency / name</label><input id="agency" required maxlength="120"></div>
+<div><label for="agencyEmail">Your email (shown to client)</label><input id="agencyEmail" type="email" maxlength="254"></div></div>
+<label>Items</label>
+<p class="muted small" style="margin-top:0">Tip: paste a list into the first box. Each line becomes an item.</p>
+<div id="items"></div>
+<div class="row"><button type="button" class="btn ghost" id="add-scope">+ In scope</button><button type="button" class="btn ghost" id="add-uat">+ UAT check</button><button type="button" class="btn ghost" id="add-out">+ Out of scope</button></div>
+<label for="notes">Notes for the client (optional)</label><textarea id="notes" maxlength="2000"></textarea>
+<p class="err" id="err"></p>
+<button class="btn" type="submit">Create sign-off link</button>
+</form>
+<div id="done" class="hidden card" style="margin-top:24px">
+<h3>Your link is ready</h3><p class="muted small">Send it to your client. This page keeps no copy, so don't lose the link.</p>
+<div class="share"><input id="link" readonly></div>
+<p class="row" style="margin-top:12px"><a class="btn ghost" id="preview" target="_blank" rel="noopener">Preview as client</a></p>
+</div>
+</main><footer><div class="wrap row" style="justify-content:space-between"><span>ScopeLock · tamper-evident sign-off links</span><span><a href="/privacy">Privacy</a> · <a href="/verify">Verify a link</a></span></div></footer><script src="/new.js"></script></body></html>

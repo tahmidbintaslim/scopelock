@@ -1,0 +1,11 @@
+{
+  "name": "scopelock",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Tamper-evident scope & UAT sign-off links for agencies. No database, no client login.",
+  "license": "MIT",
+  "type": "commonjs",
+  "engines": { "node": ">=20" },
+  "scripts": { "test": "node --test test/*.test.js" },
+  "dependencies": { "@vercel/blob": "2.8.2" }
+}

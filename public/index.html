@@ -1,0 +1,48 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/style.css"><link rel="icon" href="/favicon.svg"><script defer src="/_vercel/insights/script.js"></script><script src="/common.js"></script>
+<title>ScopeLock</title><meta name="description" content="Send clients a link. They tick off scope and UAT items and sign. You get a tamper-evident receipt. No logins, no database.">
+<meta property="og:title" content="ScopeLock: scope and UAT sign-off links for agencies"><meta property="og:description" content="Stop scope creep with signed, tamper-evident client sign-offs and tracked change requests."></head><body>
+<header class="top wrap"><a class="logo" href="/">Scope<span>Lock</span></a><nav><a href="/#how">How it works</a><a href="/#pricing">Pricing</a><a href="/new">New sign-off</a></nav></header>
+<main class="wrap">
+<h1>Get clients to sign off on scope.<br>Then hold them to it.</h1>
+<p class="lede">ScopeLock turns your scope and UAT checklist into a link. The client ticks each item, signs, and you both get a tamper-evident receipt. Anything new after that goes through a change request that shows exactly what changed.</p>
+<div class="row" style="margin:24px 0"><a class="btn" href="/new" data-ev="cta_try">Create a free sign-off</a><a class="btn ghost" href="#pricing">See pricing</a></div>
+<p class="muted small">No signup. No client login. We don't store your documents.</p>
+
+<h2 id="how">How it works</h2>
+<ol class="steps">
+<li><b>List what's in scope, the UAT checks, and what's out of scope.</b> Paste it from your SOW or write it in the app.</li>
+<li><b>Send the link.</b> The client accepts or rejects each item, comments on rejections, acknowledges the exclusions, and signs.</li>
+<li><b>Keep the receipt.</b> It's an HMAC-signed record of what was shown, who signed, and when. Change one character and verification fails.</li>
+<li><b>Handle "one more thing" with a change request.</b> Start from the signed receipt. The client sees a diff against the baseline they approved: added, changed and removed items.</li>
+</ol>
+
+<div class="grid" style="margin-top:28px">
+<div class="card"><h3>Tamper-evident</h3><p class="muted">Every link and receipt is signed on the server. <a href="/verify">Anyone can verify one</a>.</p></div>
+<div class="card"><h3>Zero-storage free tier</h3><p class="muted">The document lives in the link itself, so there's no database holding your clients' scope.</p></div>
+<div class="card"><h3>Change requests with diffs</h3><p class="muted">Revision 2 is linked to the revision 1 receipt, and the client sees exactly what moved.</p></div>
+</div>
+
+<h2 id="pricing">Pricing</h2>
+<div class="grid">
+<div class="card"><h3>Free</h3><div class="price">$0</div><ul class="ticks"><li>Unlimited sign-off links</li><li>Signed receipts with public verification</li><li>Change requests with diffs</li><li>"Sealed with ScopeLock" footer</li></ul><a class="btn ghost" href="/new">Start now</a></div>
+<div class="card"><h3>Pro <span class="pill">Early access</span></h3><div class="price">$19<small>/month</small></div><ul class="ticks"><li>Saved workspace and history</li><li>Email when a client signs or rejects</li><li>Your logo and colours</li><li>PDF receipts and a change-request log</li></ul><a class="btn" id="buy-pro" href="/api/checkout?plan=pro" data-ev="buy_pro">Get early access</a></div>
+<div class="card"><h3>Agency</h3><div class="price">$49<small>/month</small></div><ul class="ticks"><li>Everything in Pro</li><li>10 seats</li><li>White-label portal on your domain</li><li>API and webhooks</li></ul><a class="btn ghost" id="buy-agency" href="/api/checkout?plan=agency" data-ev="buy_agency">Get early access</a></div>
+</div>
+<p class="muted small">Early-access subscribers lock in this price for life. Pro and Agency features ship in stages, and you can cancel any time.</p>
+
+<h2 id="waitlist">Join the waitlist</h2>
+<form id="wl" class="card" style="max-width:520px">
+<label for="wl-email">Work email</label><input id="wl-email" type="email" required autocomplete="email">
+<label for="wl-plan">Interested in</label><select id="wl-plan"><option value="free">Free</option><option value="pro">Pro</option><option value="agency">Agency</option></select>
+<label for="wl-note">What do you need sign-off on? (optional)</label><input id="wl-note" maxlength="300">
+<input name="company" id="wl-hp" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true">
+<p class="err" id="wl-err"></p><button class="btn" type="submit">Join</button>
+<p id="wl-ok" class="hidden banner">Thanks, you're on the list. We'll email you when Pro opens.</p>
+</form>
+
+<h2>FAQ</h2>
+<p><b>Is this a legally binding e-signature?</b><br><span class="muted">It's a clear, tamper-evident record of what the client approved and when. Use it alongside your contract, not instead of a regulated e-signature such as DocuSign. Signer identity is self-declared.</span></p>
+<p><b>Where is my data?</b><br><span class="muted">On the free tier, inside the link. Our server signs it and keeps no copy. Keep your receipt link somewhere safe.</span></p>
+</main>
+<footer><div class="wrap row" style="justify-content:space-between"><span>ScopeLock · tamper-evident sign-off links</span><span><a href="/privacy">Privacy</a> · <a href="/verify">Verify a link</a></span></div></footer>
+<script src="/landing.js"></script></body></html>
