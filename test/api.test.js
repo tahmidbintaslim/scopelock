@@ -59,7 +59,7 @@ test('waitlist rate limit holds across instances (Blob-backed)', async () => {
   const store = new Map();
   const fake = {
     list: async ({ prefix, limit }) => ({ blobs: [...store.keys()].filter((k) => k.startsWith(prefix)).slice(0, limit).map((pathname) => ({ pathname, url: pathname })) }),
-    put: async (key, data) => { store.set(key, data); return {}; },
+    put: async (key, data) => { if (!data) throw new Error('Vercel Blob: body is required'); store.set(key, data); return {}; },
     del: async (urls) => { [].concat(urls).forEach((u) => store.delete(u)); },
   };
   require.cache[require.resolve('@vercel/blob')] = { exports: fake, loaded: true, id: 'blob' };

@@ -26,7 +26,7 @@ async function limitedDurable(blob, ip) {
   const prefix = `${RL_PREFIX}${win}/${ipHash}/`;
   const { blobs } = await blob.list({ prefix, limit: MAX_PER_WINDOW + 1 });
   if (blobs.length >= MAX_PER_WINDOW) return true;
-  await blob.put(prefix + crypto.randomBytes(6).toString('hex'), '', { access: 'private', addRandomSuffix: false, contentType: 'text/plain' });
+  await blob.put(prefix + crypto.randomBytes(6).toString('hex'), '1', { access: 'private', addRandomSuffix: false, contentType: 'text/plain' });
   if (Math.random() < 0.05) cleanup(blob, win).catch((e) => console.error('ratelimit cleanup', e));
   return false;
 }
@@ -42,7 +42,10 @@ module.exports = handler(async (body, req) => {
   if (!process.env.BLOB_READ_WRITE_TOKEN) throw httpError(503, 'Waitlist is temporarily unavailable');
   const blob = require('@vercel/blob');
   const ip = String(req.headers['x-real-ip'] || req.headers['x-forwarded-for'] || '').split(',')[0].trim();
-  if (ip && (limitedInMemory(ip) || await limitedDurable(blob, ip))) {
+  if (ip && (limitedInMemory(ip) || await limitedDurable(blob, ip).catch((e) => {
+    console.error('ratelimit check failed, allowing request', e);
+    return false; // fail open: never block real sign-ups on a limiter error
+  }))) {
     throw httpError(429, 'Too many requests, try again in a few minutes');
   }
   const addr = email(body.email, 'Email');
