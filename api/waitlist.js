@@ -1,8 +1,24 @@
 'use strict';
 const { email, str, handler, httpError, sha256 } = require('./_lib');
 
-module.exports = handler(async (body) => {
+// Best-effort per-IP limit. Instances are short-lived, so a firewall rule backs it up.
+const WINDOW_MS = 10 * 60 * 1000;
+const MAX_PER_WINDOW = 5;
+const hits = new Map();
+
+function limited(ip) {
+  const now = Date.now();
+  const recent = (hits.get(ip) || []).filter((t) => now - t < WINDOW_MS);
+  recent.push(now);
+  hits.set(ip, recent);
+  if (hits.size > 5000) hits.clear();
+  return recent.length > MAX_PER_WINDOW;
+}
+
+module.exports = handler(async (body, req) => {
   if (body.company) return { ok: true }; // honeypot
+  const ip = String(req.headers['x-real-ip'] || req.headers['x-forwarded-for'] || '').split(',')[0].trim();
+  if (ip && limited(ip)) throw httpError(429, 'Too many requests, try again in a few minutes');
   const addr = email(body.email, 'Email');
   if (!addr) throw httpError(400, 'Email is required');
   const plan = ['free', 'pro', 'agency'].includes(body.plan) ? body.plan : 'free';
