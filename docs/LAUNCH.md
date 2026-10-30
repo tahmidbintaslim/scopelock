@@ -93,7 +93,7 @@ Why ScopeLock goes first even though checkout-sentinel has more revenue: it is d
   > I'd especially like critique of the threat model, and to hear whether "stateless" is a feature or a footgun for something like this.
 
 ### X thread
-1. Most agency disputes come down to one sentence: "I thought that was included." I built a free tool to end that argument. ScopeLock: client sign-off on scope and UAT, with tamper-evident receipts. 🧵 [GIF]
+1. Most agency disputes come down to one sentence: "I thought that was included." I built a free tool to end that argument. ScopeLock: client sign-off on scope and UAT, with tamper-evident receipts. [GIF]
 2. You list what's in scope, the UAT checks, and what's explicitly out. The client gets a link and accepts or rejects every item. A rejection needs a comment, and exclusions need an explicit "acknowledged".
 3. When they sign, you both get a receipt that's HMAC-signed by the server. Change one character and verification fails, and anyone can verify it.
 4. The part I'm proudest of: "one more small thing?" Start a change request from the signed receipt, and the client sees exactly what was added or changed against what they already approved. [change-request.png]
@@ -106,14 +106,14 @@ Why ScopeLock goes first even though checkout-sentinel has more revenue: it is d
 > After years of leading fixed-price builds, I noticed the expensive disputes never came from bad intent. They came from "I thought that was included," plus a PDF nobody re-read.
 >
 > So I built ScopeLock, a free tool that turns your scope and UAT checklist into a sign-off link:
-> ✅ the client accepts or rejects every item (a rejection needs a comment)
-> ✅ exclusions must be explicitly acknowledged
-> ✅ both sides get a tamper-evident, cryptographically signed receipt
-> ✅ every later request becomes a change request with a clear diff
+> - the client accepts or rejects every item (a rejection needs a comment)
+> - exclusions must be explicitly acknowledged
+> - both sides get a tamper-evident, cryptographically signed receipt
+> - every later request becomes a change request with a clear diff
 >
 > No signup, and no database on the free tier. The document lives in the link.
 >
-> If you run an agency or freelance, I'd value your honest feedback: would you send this to a client? 👉 https://scopelock-sable.vercel.app
+> If you run an agency or freelance, I'd value your honest feedback: would you send this to a client? https://scopelock-sable.vercel.app
 >
 > #freelancing #agency #projectmanagement #webdevelopment #buildinpublic
 

@@ -34,9 +34,9 @@ Most agency disputes come down to one sentence: *"I thought that was included."*
 
 | | Free (this repo) | Pro $19/mo | Agency $49/mo |
 |---|---|---|---|
-| Unlimited sign-off links, receipts, change requests | ✓ | ✓ | ✓ |
-| Saved workspace, email notifications, branding, PDF | | ✓ | ✓ |
-| Seats, white-label domain, API/webhooks | | | ✓ |
+| Unlimited sign-off links, receipts, change requests | Yes | Yes | Yes |
+| Saved workspace, email notifications, branding, PDF | No | Yes | Yes |
+| Seats, white-label domain, API/webhooks | No | No | Yes |
 
 ## Security model (read this before relying on it)
 
