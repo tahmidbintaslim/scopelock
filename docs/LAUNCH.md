@@ -82,7 +82,7 @@ Before posting:
 >
 > For a new ask, you start a change request from the signed receipt. The client sees added, changed and removed items compared with what they approved.
 >
-> The free tier stores nothing. The document is in the link's URL fragment. Pro and Agency are planned and not built yet, at $19 and $49 per month. Checkout is in test mode today.
+> The free tier stores nothing. The document is in the link's URL fragment. Pro and Agency are planned and not built yet, at $19 and $49 per month. You can join the waitlist for either.
 >
 > What would you need to see before you send this to a client?
 
@@ -108,7 +108,7 @@ Before posting:
 3. When the client signs, both sides get a receipt signed with HMAC-SHA256. Change one character and verification fails. Anyone can check one on the verify page.
 4. For a new ask, start a change request from the signed receipt. The client sees added, changed and removed items compared with what they approved. [07-client-diff.png]
 5. The free tier stores no documents. The document sits in the URL fragment. There is no database, no signup and no client login.
-6. Pro and Agency are planned and not built yet, at $19 and $49 per month. Checkout runs in test mode. Try it: https://scopelock-sable.vercel.app. Code, MIT: github.com/tahmidbintaslim/scopelock
+6. Pro and Agency are planned and not built yet, at $19 and $49 per month, with a waitlist for each. Try it: https://scopelock-sable.vercel.app. Code, MIT: github.com/tahmidbintaslim/scopelock
 
 ### LinkedIn
 

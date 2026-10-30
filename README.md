@@ -65,7 +65,7 @@ SIGNING_SECRET=$(openssl rand -base64 32) npm run dev   # http://localhost:3000,
 
 `scripts/capture-screenshots.js` regenerates everything in `docs/img/` from a real run against the dev server.
 
-Payments: checkout uses Stripe Payment Links in test mode, so no card is charged. Pro and Agency are not built yet.
+Payments: Pro and Agency are not built yet, so the landing page links to the waitlist. The `/api/checkout` route and the Stripe test-mode links stay in place for when live mode is approved.
 
 ## Roadmap
 
