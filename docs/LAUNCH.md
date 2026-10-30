@@ -18,7 +18,7 @@ Why ScopeLock goes first even though checkout-sentinel has more revenue: it is d
 
 ### ScopeLock (live: https://scopelock-sable.vercel.app)
 - **ICP:** freelance developers and 2–20-person web/Shopify agencies doing fixed-price work, initially in SEA and the global remote market. Buyer: agency owner or PM. Trigger: a client dispute or a "while you're at it" request.
-- **Pricing:** Free (unlimited links, receipts, change requests, ScopeLock footer). **Pro $19/mo**: workspace, email notifications, branding, PDF, CR log. **Agency $49/mo**: 10 seats, white-label domain, API/webhooks. Early-access price locked for life.
+- **Pricing:** Free (no cap on links, receipts or change requests). **Pro $19/mo**: workspace, email notifications, branding, PDF, CR log. **Agency $49/mo**: 10 seats, white-label domain, API/webhooks. Early access prices; Pro and Agency are not built yet.
 - **MVP scope (shipped):** create a sign-off (scope, UAT and out-of-scope items, paste-to-split), client sign page (accept/reject with comment, acknowledge exclusions, declaration), HMAC-signed receipt with evidence, public verify page, change requests with an added/changed/removed diff against the signed baseline, waitlist (Vercel Blob, private), Stripe Payment Links (test), privacy page.
 - **Next for Pro (build only after 10 paid or 50 waitlist sign-ups):** auth plus Postgres workspace; Resend email on sign/reject; logo; PDF via @react-pdf or Playwright; signer email OTP.
 - **Stack:** static HTML/CSS/vanilla JS plus four Node serverless functions; `crypto` HMAC; `@vercel/blob`; Stripe Payment Links. No analytics: success is measured by waitlist sign-ups (Blob) and Stripe checkouts.
@@ -49,93 +49,99 @@ Why ScopeLock goes first even though checkout-sentinel has more revenue: it is d
 
 | Repo | Polish before its launch | README hero line | Demo GIF (≤ 20 s, 800 px wide) | Topics |
 |---|---|---|---|---|
-| **checkout-sentinel** | Enable Pages for the v0.3 dashboard; add a "Deploy in 5 min" compose section at the top; badges (CI, license, release); CHANGELOG v0.3 | "Find out your Shopify/WooCommerce checkout is broken before your customers do." | Break the fixture's Add to cart → mobile run fails → Slack alert with screenshot → fix → recovery alert | `shopify` `woocommerce` `synthetic-monitoring` `playwright` `ecommerce` `checkout` `uptime-monitoring` `nestjs` `bullmq` `vue3` `self-hosted` `observability` |
-| **scopelock** (new; repo not created yet, see blockers) | Push the local repo; social preview from `docs/landing.png`; add a GitHub Action running `npm test` | "Get clients to sign off on scope. Then hold them to it." | New sign-off → client accepts/rejects → receipt → change request showing the CHANGED/ADDED diff (the `docs/*.png` frames are ready) | `agency` `freelance` `scope-creep` `uat` `sign-off` `hmac` `tamper-evident` `serverless` `vercel` `no-database` `project-management` |
-| **shopify-ucp** | Fix the 9 known issues first (P3 list), add the read-only MCP playground. **Don't promote until the playground works** | "Make any Shopify store callable by AI agents over MCP." | Agent asks "waterproof jackets under $150" → `tools/call` trace → products | `mcp` `model-context-protocol` `shopify` `shopify-app` `ai-agents` `agentic-commerce` `remix` `polaris` |
-| **sun-ui** | Register the npm scope and publish 0.1.0; add a "SaaS settings screen" example; link Storybook in the About box | "26 MUI v7 components, one variant/color/size API, light and dark tokens." | Change the variant prop across components → toggle dark mode → token table | `react` `mui` `design-system` `component-library` `storybook` `design-tokens` `typescript` `dark-mode` |
-| **promptpay-storefront** | QR preview is live (PR #6). Add a "WooCommerce plugin waitlist" CTA plus a Stripe link | "PromptPay QR payments for WooCommerce, with exact totals, slip upload and duplicate-slip rejection." | Type a PromptPay ID and amount → QR renders → scan it on a phone | `promptpay` `thailand` `woocommerce` `qr-code` `emvco` `payments` `wordpress-plugin` |
+| **checkout-sentinel** | Enable Pages for the v0.3 dashboard; add a "Deploy in 5 min" compose section at the top; badges (CI, license, release); CHANGELOG v0.3 | "Find out your Shopify/WooCommerce checkout is broken before your customers do." | Break the fixture's Add to cart then mobile run fails then Slack alert with screenshot then fix then recovery alert | `shopify` `woocommerce` `synthetic-monitoring` `playwright` `ecommerce` `checkout` `uptime-monitoring` `nestjs` `bullmq` `vue3` `self-hosted` `observability` |
+| **scopelock** (repo is public) | Set topics and a social preview from `docs/img/01-landing.png`; add a GitHub Action running `npm test` | "Get clients to sign off on scope. Then hold them to it." | New sign-off then client accepts/rejects then receipt then change request showing the CHANGED/ADDED diff (the `docs/*.png` frames are ready) | `agency` `freelance` `scope-creep` `uat` `sign-off` `hmac` `tamper-evident` `serverless` `vercel` `no-database` `project-management` |
+| **shopify-ucp** | Fix the 9 known issues first (P3 list), add the read-only MCP playground. **Don't promote until the playground works** | "Make any Shopify store callable by AI agents over MCP." | Agent asks "waterproof jackets under $150" then `tools/call` trace then products | `mcp` `model-context-protocol` `shopify` `shopify-app` `ai-agents` `agentic-commerce` `remix` `polaris` |
+| **sun-ui** | Register the npm scope and publish 0.1.0; add a "SaaS settings screen" example; link Storybook in the About box | "26 MUI v7 components, one variant/color/size API, light and dark tokens." | Change the variant prop across components then toggle dark mode then token table | `react` `mui` `design-system` `component-library` `storybook` `design-tokens` `typescript` `dark-mode` |
+| **promptpay-storefront** | QR preview is live (PR #6). Add a "WooCommerce plugin waitlist" CTA plus a Stripe link | "PromptPay QR payments for WooCommerce, with exact totals, slip upload and duplicate-slip rejection." | Type a PromptPay ID and amount then QR renders then scan it on a phone | `promptpay` `thailand` `woocommerce` `qr-code` `emvco` `payments` `wordpress-plugin` |
 | **gmail-auto-unsubscribe** | PR #6 merged (demo GIF). Submit to the Chrome Web Store ($5 developer fee, owner); add a privacy section near the top | "Unsubscribe from every Gmail newsletter in one click, without the extension ever reading your mail." | The existing 15 s run GIF | `chrome-extension` `gmail` `unsubscribe` `privacy` `manifest-v3` `productivity` `email` |
 
 ---
 
 ## 4. Launch kit for ScopeLock (drafts; the owner posts)
 
-> Before posting: (1) the owner approves Stripe live mode, then the live links replace the `STRIPE_LINK_*` env values; (2) the GitHub repo is public; (3) optionally a custom domain (for example `scopelock.app`, check price first).
+Voice rules applied: plain first person, no emoji, no em dashes, sentence case, US spelling, no slogan. Every claim below is something the product or the repo supports. Lines marked OWNER CONFIRM are statements only you can vouch for.
+
+Before posting:
+1. Approve Stripe live mode, then replace the `STRIPE_LINK_*` env values with the live links.
+2. Make sure the GitHub repo is public.
+3. Optional: a custom domain. Check the price first.
 
 ### Product Hunt
-- **Name:** ScopeLock
-- **Tagline (≤ 60):** Client sign-off on scope and UAT, with tamper-evident receipts
-- **Topics:** Productivity, Freelance, SaaS, Developer Tools
-- **Description (≤ 260):** Turn your SOW checklist into a link. Clients accept or reject each item and sign, and you both get an HMAC-signed receipt that anyone can verify. New asks become change requests that show exactly what changed. Free, with no signup and no database.
-- **Gallery:** `docs/landing.png`, `new.png`, `sign.png`, `receipt.png`, `change-request.png`, plus the GIF
-- **Maker comment:**
-  > Hi PH! I'm Tahmid, a lead full-stack engineer in Bangkok. I've spent years shipping fixed-price projects for agencies, and the most expensive sentence in that work is "I thought that was included."
-  >
-  > So I built ScopeLock. You list what's in scope, the UAT checks, and what's explicitly out. Your client gets a link, ticks every item (a rejection needs a comment), acknowledges the exclusions, and signs. You both get a receipt that's cryptographically signed: change one character and verification fails.
-  >
-  > The part I like most: when the client comes back with "one small thing", you start a change request from the signed receipt, and they see the diff against what they already approved.
-  >
-  > The free tier stores nothing. The whole document lives in the link's URL fragment. Pro (saved workspace, email alerts, branding, PDF) is in early access at $19/mo, locked for life.
-  >
-  > I'd love feedback from anyone who's lived through scope creep. What would you need before you'd send this to a client?
+
+- Name: ScopeLock
+- Tagline (60 characters max): Scope and UAT sign-off links with signed receipts
+- Topics: Productivity, Freelance, SaaS, Developer Tools
+- Description (260 characters max): ScopeLock turns a scope and UAT checklist into a link. The client accepts or rejects each item and signs. Both sides get an HMAC-signed receipt anyone can verify, and new asks become change requests with a diff. No signup and no database on the free tier.
+- Gallery: `docs/img/01-landing.png`, `02-create.png`, `04-client-review.png`, `05-receipt.png`, `07-client-diff.png`, and `demo.gif`
+- Maker comment:
+
+> I'm Tahmid Rafi, a Lead Full Stack Software Engineer & Solutions Architect in Bangkok. I built ScopeLock to settle one sentence: "I thought that was included."
+>
+> You list what is in scope, the UAT checks and what is out of scope. The client gets a link, accepts or rejects each item (a rejection needs a comment), acknowledges the exclusions and signs. Both sides get a receipt signed with HMAC-SHA256. Change one character and verification fails.
+>
+> For a new ask, you start a change request from the signed receipt. The client sees added, changed and removed items compared with what they approved.
+>
+> The free tier stores nothing. The document is in the link's URL fragment. Pro and Agency are planned and not built yet, at $19 and $49 per month. Checkout is in test mode today.
+>
+> What would you need to see before you send this to a client?
 
 ### Show HN
-- **Title:** Show HN: ScopeLock – Scope sign-off links with HMAC receipts and no database
-- **Body:**
-  > I run fixed-price web projects, and most disputes come down to "was that in scope?". ScopeLock is a small tool for that: the agency lists in-scope items, UAT checks and exclusions; the client gets a link, accepts or rejects each one and signs; both keep a signed receipt.
-  >
-  > Implementation, since HN will ask: there's no database. The document is JSON, base64url-encoded and HMAC-SHA256-signed by the server (`v1.<payload>.<mac>`), and it lives in the URL fragment, so it never hits server logs. Signing returns a receipt token that embeds the document, its SHA-256, the decisions, a timestamp, the country and a UA hash, signed the same way. "Verify" recomputes the MAC. A change request embeds the parent receipt's hash and items, so the client sees a diff against the baseline.
-  >
-  > Known limits: signer identity is self-declared (no OTP yet), and rotating the server secret invalidates old links unless I add key IDs, which is next. It's a record of agreement, not a qualified e-signature.
-  >
-  > Static HTML plus four Node functions on Vercel, about 500 lines, MIT: github.com/tahmidbintaslim/scopelock. Live: https://scopelock-sable.vercel.app
-  >
-  > I'd especially like critique of the threat model, and to hear whether "stateless" is a feature or a footgun for something like this.
+
+- Title: Show HN: ScopeLock, scope sign-off links with HMAC receipts and no database
+- Body:
+
+> ScopeLock turns a scope and UAT checklist into a link. The client accepts or rejects each item and signs, and both sides keep a signed receipt.
+>
+> How it works: there is no database. The document is JSON, base64url-encoded and signed by the server with HMAC-SHA256 as `v1.<payload>.<mac>`. It lives in the URL fragment, so it does not reach server logs. Signing returns a receipt token that embeds the document, its SHA-256, the decisions, a timestamp, the country and a user agent hash, signed the same way. Verify recomputes the MAC with a constant-time compare. A change request embeds the parent receipt's hash and items, so the client sees a diff against the baseline.
+>
+> Limits: signer identity is self-declared, and there is no email check yet. Rotating the server secret invalidates every old link until I add key IDs. It is a record of agreement, not a qualified e-signature.
+>
+> The code is about 500 lines of JavaScript and CSS plus HTML: four serverless functions on Vercel and static pages. MIT license: github.com/tahmidbintaslim/scopelock. Live: https://scopelock-sable.vercel.app
+>
+> I would like critique of the threat model, and opinions on whether keeping no state is a feature or a liability for this kind of tool.
 
 ### X thread
-1. Most agency disputes come down to one sentence: "I thought that was included." I built a free tool to end that argument. ScopeLock: client sign-off on scope and UAT, with tamper-evident receipts. [GIF]
-2. You list what's in scope, the UAT checks, and what's explicitly out. The client gets a link and accepts or rejects every item. A rejection needs a comment, and exclusions need an explicit "acknowledged".
-3. When they sign, you both get a receipt that's HMAC-signed by the server. Change one character and verification fails, and anyone can verify it.
-4. The part I'm proudest of: "one more small thing?" Start a change request from the signed receipt, and the client sees exactly what was added or changed against what they already approved. [change-request.png]
-5. The free tier stores nothing. The whole doc lives in the URL fragment: no DB, no signup, no client login.
-6. Free forever for links and receipts. Pro (workspace, email alerts, branding, PDF) is in early access at $19/mo, locked for life. Try it: https://scopelock-sable.vercel.app. Code (MIT): github.com/tahmidbintaslim/scopelock
+
+1. Scope disputes usually come down to one sentence: "I thought that was included." I built ScopeLock for that. It turns a scope and UAT checklist into a sign-off link with a signed receipt. [demo.gif]
+2. You list what is in scope, the UAT checks and what is out. The client accepts or rejects every item. A rejection needs a comment, and each exclusion needs an explicit acknowledgment.
+3. When the client signs, both sides get a receipt signed with HMAC-SHA256. Change one character and verification fails. Anyone can check one on the verify page.
+4. For a new ask, start a change request from the signed receipt. The client sees added, changed and removed items compared with what they approved. [07-client-diff.png]
+5. The free tier stores no documents. The document sits in the URL fragment. There is no database, no signup and no client login.
+6. Pro and Agency are planned and not built yet, at $19 and $49 per month. Checkout runs in test mode. Try it: https://scopelock-sable.vercel.app. Code, MIT: github.com/tahmidbintaslim/scopelock
 
 ### LinkedIn
-> Scope creep isn't a client problem. It's a paperwork problem.
->
-> After years of leading fixed-price builds, I noticed the expensive disputes never came from bad intent. They came from "I thought that was included," plus a PDF nobody re-read.
->
-> So I built ScopeLock, a free tool that turns your scope and UAT checklist into a sign-off link:
-> - the client accepts or rejects every item (a rejection needs a comment)
-> - exclusions must be explicitly acknowledged
-> - both sides get a tamper-evident, cryptographically signed receipt
-> - every later request becomes a change request with a clear diff
->
-> No signup, and no database on the free tier. The document lives in the link.
->
-> If you run an agency or freelance, I'd value your honest feedback: would you send this to a client? https://scopelock-sable.vercel.app
->
-> #freelancing #agency #projectmanagement #webdevelopment #buildinpublic
 
-### Claude / MCP directories
-ScopeLock is **not an MCP server** today, so don't list it. A good follow-up (about 1 day of work): a small `scopelock-mcp` server with `create_signoff(items)` and `verify_receipt(url)` tools, so agents drafting SOWs can mint sign-off links. Once it exists, list it on the official MCP Registry (registry.modelcontextprotocol.io), mcp.so, Smithery and Glama. **shopify-ucp** is the repo that genuinely fits these directories, after its playground works.
+> I built ScopeLock, a tool that turns a scope and UAT checklist into a sign-off link.
+>
+> The client accepts or rejects each item, comments on any rejection, acknowledges the exclusions and signs. Both sides get a receipt signed with HMAC-SHA256. A later request becomes a change request that shows added, changed and removed items compared with what the client approved.
+>
+> The free tier has no signup, no client login and no database. The document lives in the link.
+>
+> I'm Tahmid Rafi, a Lead Full Stack Software Engineer & Solutions Architect in Bangkok. If you run an agency or freelance, I would like to know whether you would send this to a client, and what is missing.
+>
+> https://scopelock-sable.vercel.app
 
-### Launch-day checklist (ScopeLock)
-**T-7 to T-2 days**
-- [ ] Owner approves Stripe live mode → create live Payment Links → update `STRIPE_LINK_PRO` and `STRIPE_LINK_AGENCY` → redeploy → do one real $19 purchase and refund it
-- [ ] Create a public `tahmidbintaslim/scopelock` repo, push, set topics, social preview, About link
-- [ ] Record the 20 s GIF (the flow from the screenshots); make a 1270×760 PH thumbnail
-- [ ] Optional: buy a domain and add it to the project; update the Stripe redirect URLs
-- [ ] Schedule PH for **Tuesday–Thursday, 00:01 PT** (14:01 Bangkok); line up 10 people to try it and comment honestly (no vote-begging)
+### Claude and MCP directories
 
-**Launch day (Bangkok times)**
-- [ ] 14:01: PH goes live → post the maker comment
-- [ ] 14:15: X thread, LinkedIn post (link in the first comment if reach drops)
-- [ ] 20:00–21:00 (US morning): Show HN. Stay to answer every comment for 3 hours, with technical answers and no marketing tone
-- [ ] Every 2 h: check Vercel runtime errors and logs, the waitlist count (Blob `waitlist/`), Stripe test or live checkouts
-- [ ] Reply to every PH and HN comment within 30 min
+ScopeLock is not an MCP server, so there is nothing to list. A follow-up of about one day: a small `scopelock-mcp` server with `create_signoff(items)` and `verify_receipt(url)` tools. Once it exists, list it on the official MCP Registry (registry.modelcontextprotocol.io), mcp.so, Smithery and Glama. shopify-ucp fits those directories better, after its playground works.
 
-**T+1 to T+7**
-- [ ] Email waitlist sign-ups personally (first 50) and ask for a 15-min call
-- [ ] Post a "what I learned" follow-up on X/LinkedIn with real numbers
-- [ ] Decide on the Pro build go/no-go: ≥10 paid early-access or ≥50 Pro/Agency waitlist sign-ups → build the workspace and email notifications
+### Launch-day checklist
+
+T-7 to T-2 days
+- [ ] Approve Stripe live mode, create live Payment Links, update `STRIPE_LINK_PRO` and `STRIPE_LINK_AGENCY`, redeploy, then make one real $19 purchase and refund it
+- [ ] Make `tahmidbintaslim/scopelock` public; set topics, social preview and the About link
+- [ ] Optional: buy a domain, add it to the project and update the Stripe redirect URLs
+- [ ] Schedule Product Hunt for Tuesday to Thursday at 00:01 PT (14:01 in Bangkok); ask 10 people to try it and comment honestly
+
+Launch day (Bangkok time)
+- [ ] 14:01 Product Hunt goes live; post the maker comment
+- [ ] 14:15 X thread and LinkedIn post
+- [ ] 20:00 to 21:00 (US morning) Show HN; stay for 3 hours and answer every comment with technical detail
+- [ ] Every 2 hours: Vercel runtime errors and logs, the waitlist count (Blob `waitlist/`), Stripe checkouts
+- [ ] Reply to every Product Hunt and Hacker News comment within 30 minutes
+
+T+1 to T+7 days
+- [ ] Email the first 50 waitlist sign-ups personally and ask for a 15 minute call
+- [ ] Post a follow-up with real numbers
+- [ ] Decide on building Pro: 10 paid early access sign-ups, or 50 Pro or Agency waitlist sign-ups
