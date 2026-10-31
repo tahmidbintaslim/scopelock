@@ -42,6 +42,22 @@ test('tampering is detected', async () => {
   assert.equal(r.status, 400);
 });
 
+test('a non-canonical signature encoding is rejected', async () => {
+  const s = await call(seal, doc);
+  const ok = await call(verify, { token: s.body.token });
+  assert.equal(ok.status, 200);
+  // Flip the lowest bit of the last base64url character. It decodes to the same 32 bytes
+  // (the final character carries two unused bits), so only the canonical check catches it.
+  const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
+  const t = s.body.token;
+  const last = t[t.length - 1];
+  const twin = alphabet[alphabet.indexOf(last) ^ 1];
+  const sigOf = (tok) => Buffer.from(tok.split('.')[2], 'base64url');
+  assert.deepEqual(sigOf(t.slice(0, -1) + twin), sigOf(t));
+  assert.equal((await call(verify, { token: t.slice(0, -1) + twin })).status, 400);
+  assert.equal((await call(verify, { token: t + '=' })).status, 400);
+});
+
 test('rejection needs a comment; all items must be decided', async () => {
   const s = await call(seal, doc);
   const items = (await call(verify, { token: s.body.token })).body.data.items;
