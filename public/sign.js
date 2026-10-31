@@ -17,7 +17,7 @@ async function init() {
   $('#notes').textContent = data.notes || '';
   if (data.parent) {
     const b = $('#cr');
-    b.textContent = `This is a change request against "${data.parent.title}", signed by ${data.parent.signer} on ${fmt(data.parent.signedAt)}. Coloured bars show added, changed and removed items.`;
+    b.textContent = `This is a change request against "${data.parent.title}", signed by ${data.parent.signer} on ${fmt(data.parent.signedAt)}. Colored bars show added, changed and removed items.`;
     b.classList.remove('hidden');
     const removed = data.parent.items.filter((p) => !data.items.some((i) => i.id === p.id));
     if (removed.length) $('#removed').append(el('h3', { text: 'Removed since the baseline', style: 'margin-top:20px' }), ...removed.map((r) => el('p', { class: 'diff-del', text: `${KIND[r.kind]}: ${r.text}` })));
