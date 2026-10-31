@@ -34,7 +34,9 @@ function open(token, expectedType) {
   if (v !== 'v1' || !payload || !sig) throw httpError(400, 'Invalid token');
   const want = crypto.createHmac('sha256', secret()).update('v1.' + payload).digest();
   const got = Buffer.from(sig, 'base64url');
-  if (got.length !== want.length || !crypto.timingSafeEqual(got, want)) {
+  // The last base64url character of a 32-byte MAC carries unused bits, so also require
+  // the canonical encoding. Otherwise a link string with a changed final character still verifies.
+  if (got.length !== want.length || b64(got) !== sig || !crypto.timingSafeEqual(got, want)) {
     throw httpError(400, 'Signature check failed: this link was modified or not issued by ScopeLock');
   }
   const obj = JSON.parse(Buffer.from(payload, 'base64url').toString('utf8'));
