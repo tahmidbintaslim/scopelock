@@ -4,7 +4,7 @@
 <header class="top wrap"><a class="logo" href="/">Scope<span>Lock</span></a><nav><a href="/#how">How it works</a><a href="/#pricing">Pricing</a><a href="/new">New sign-off</a></nav></header>
 <main class="wrap">
 <h1>Scope and UAT sign-off links with signed receipts</h1>
-<p class="lede">I built ScopeLock for agencies and freelancers who need a client to approve scope in writing. You list the in-scope items, the UAT checks and the exclusions. The client accepts or rejects each one and signs. Both of you keep a receipt that fails verification if anyone edits it.</p>
+<p class="lede">I built ScopeLock for agencies and freelancers who need a client to approve scope in writing. You list the in-scope items, the UAT checks and the exclusions. The client accepts or rejects each one and signs. The client gets a receipt link to keep and send to you, and the receipt fails verification if anyone edits it.</p>
 <div class="row" style="margin:24px 0"><a class="btn" href="/new">Create a free sign-off</a><a class="btn ghost" href="#pricing">See pricing</a></div>
 <p class="muted small">No signup and no client login. The free tier stores no documents.</p>
 
@@ -22,7 +22,7 @@
 <ol class="steps">
 <li><b>List what is in scope, the UAT checks and what is out of scope.</b> Paste a list and each line becomes an item.</li>
 <li><b>Send the link.</b> The client accepts or rejects each item and must comment on any rejection. They acknowledge the exclusions and sign.</li>
-<li><b>Keep the receipt.</b> It records the document, the decisions, the signer's name and email as entered, and the time, signed with HMAC-SHA256. Changing one character makes verification fail.</li>
+<li><b>Keep the receipt.</b> It records the document, the decisions, the signer's name and email as entered, and the time, signed with HMAC-SHA256. Any change to the document fails verification.</li>
 <li><b>Start a change request from a signed receipt for any new ask.</b> The client sees added, changed and removed items compared with what they approved.</li>
 </ol>
 
@@ -34,7 +34,7 @@
 
 <h2 id="pricing">Pricing</h2>
 <div class="grid">
-<div class="card"><h3>Free</h3><div class="price">$0</div><ul class="ticks"><li>No cap on sign-off links, receipts or change requests</li><li>Public verification page</li><li>Change requests with a diff</li><li>Limits: 100 items per document, 600 characters per item</li></ul><a class="btn ghost" href="/new">Start now</a></div>
+<div class="card"><h3>Free</h3><div class="price">$0</div><ul class="ticks"><li>No cap on sign-off links, receipts or change requests</li><li>Public verification page</li><li>Change requests with a diff</li><li>Limits: up to 100 items of 600 characters each, within one link of about 60,000 characters</li></ul><a class="btn ghost" href="/new">Start now</a></div>
 <div class="card"><h3>Pro <span class="pill">Early access</span></h3><div class="price">$19<small>/month</small></div><p class="muted small">Not built yet. Planned:</p><ul class="ticks"><li>Saved workspace and history</li><li>Email when a client signs or rejects</li><li>Your logo and colors</li><li>PDF receipts and a change request log</li></ul><a class="btn" id="buy-pro" href="/?plan=pro#waitlist">Join the Pro waitlist</a></div>
 <div class="card"><h3>Agency <span class="pill">Early access</span></h3><div class="price">$49<small>/month</small></div><p class="muted small">Not built yet. Planned:</p><ul class="ticks"><li>Everything in Pro</li><li>10 seats</li><li>Your own domain for the client portal</li><li>API and webhooks</li></ul><a class="btn ghost" id="buy-agency" href="/?plan=agency#waitlist">Join the Agency waitlist</a></div>
 </div>
@@ -47,7 +47,7 @@
 <label for="wl-note">What do you need sign-off on? (optional)</label><input id="wl-note" maxlength="300">
 <input name="company" id="wl-hp" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true">
 <p class="err" id="wl-err"></p><button class="btn" type="submit">Join</button>
-<p id="wl-ok" class="hidden banner">You are on the list. I will email you when Pro opens.</p>
+<p id="wl-ok" class="hidden banner">You are on the list.</p>
 </form>
 
 <h2>FAQ</h2>

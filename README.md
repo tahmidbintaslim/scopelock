@@ -1,7 +1,7 @@
 <p align="center"><img src="public/favicon.svg" width="56" alt=""></p>
 <h1 align="center">ScopeLock</h1>
 <p align="center"><b>Scope and UAT sign-off links with signed receipts.</b><br>
-The client accepts or rejects each item and signs, and both sides get an HMAC-signed receipt. A later request becomes a change request that shows a diff.<br>
+The client accepts or rejects each item and signs, and the client gets an HMAC-signed receipt link to keep and send to the agency. A later request becomes a change request that shows a diff.<br>
 No database and no client login.</p>
 <p align="center"><a href="https://scopelock-sable.vercel.app">Live app</a> · <a href="#how-it-works">How it works</a> · <a href="#self-host">Self-host</a></p>
 
@@ -28,8 +28,8 @@ Scope disputes usually come down to one sentence: "I thought that was included."
 ## How it works
 
 1. **Seal.** The agency lists in-scope items, UAT checks and out-of-scope exclusions. `POST /api/seal` returns `v1.<base64url(json)>.<hmac>`. That token is the whole document.
-2. **Sign.** The client opens `/sign#<token>`. The data sits in the URL fragment, so it never reaches server logs. They accept or reject each item (a rejection needs a comment), acknowledge the exclusions and sign. `POST /api/sign` checks the token and returns a signed **receipt** that embeds the document, its SHA-256, the decisions, the signer, a timestamp, the country and a UA hash.
-3. **Verify.** `/verify` (or `POST /api/verify`) recomputes the HMAC. If a single byte changed, verification fails.
+2. **Sign.** The client opens `/sign#<token>`. The data sits in the URL fragment, so it is not part of the page request. The page then sends it in the body of an API call that checks the signature and stores nothing. They accept or reject each item (a rejection needs a comment), acknowledge the exclusions and sign. `POST /api/sign` checks the token and returns a signed **receipt** that embeds the document, its SHA-256, the decisions, the signer, a timestamp, the country and a UA hash.
+3. **Verify.** `/verify` (or `POST /api/verify`) recomputes the HMAC. If the document changed, verification fails.
 4. **Change request.** "Start a change request" on a receipt seals revision *n+1* linked to the baseline receipt's hash. The client sees added, changed and removed items compared with what they approved.
 
 | | Free (this repo) | Pro, planned, $19/mo | Agency, planned, $49/mo |
@@ -43,7 +43,7 @@ Scope disputes usually come down to one sentence: "I thought that was included."
 * Integrity comes from HMAC-SHA256 with a server secret, compared in constant time. A token cannot be forged or edited without `SIGNING_SECRET`.
 * Signer identity is self-declared: the receipt shows what the person who opened the link entered. It is a sign-off record, not an eIDAS or ESIGN qualified signature.
 * Rotating the secret makes every existing link fail verification. Key IDs (`v2.<kid>.…`) would fix that, and they are on the roadmap.
-* Inputs are size-limited (64 KB body, 100 items, 600 chars per item). Waitlist sign-ups are rate-limited per IP (5 per 10 min), with counters in Blob under a keyed hash, so raw IPs are never stored. The UI renders everything with `textContent`, under a strict CSP.
+* Inputs are size-limited (64 KB body, up to 100 items of 600 characters each, and about 60,000 characters per link). Waitlist sign-ups are rate-limited per IP (5 per 10 min), with counters in Blob under a keyed hash, so raw IPs are never stored. The UI renders everything with `textContent`, under a strict CSP.
 
 ## Self-host
 
@@ -55,7 +55,7 @@ npm install && npm test
 npx vercel deploy
 ```
 
-No framework and no build step: static files in `public/` plus four Node functions in `api/`.
+No framework and no build step: static files in `public/` plus five Node functions in `api/`.
 
 ### Run it locally
 
